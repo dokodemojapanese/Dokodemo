@@ -2,7 +2,7 @@ name: Build Dev APK
 on: workflow_dispatch
 
 env:
-  DEV_VER: "1.0.2"
+  DEV_VER: "1.0.3"
 
 jobs:
   build:
@@ -29,7 +29,7 @@ jobs:
         run: |
           mkdir app && cd app
           npm init -y
-          npm i @capacitor/core@7 @capacitor/cli@7 @capacitor/android@7 @capacitor/local-notifications@7 @capacitor/app@7
+          npm i @capacitor/core@7 @capacitor/cli@7 @capacitor/android@7 @capacitor/local-notifications@7 @capacitor/app@7 @capacitor-community/text-to-speech@6
           if [ -f ../google-services.json ]; then
             npm i @capacitor-firebase/authentication@7 firebase@11
             PLUG=',"plugins":{"FirebaseAuthentication":{"skipNativeAuth":true,"providers":["google.com"]}}'
