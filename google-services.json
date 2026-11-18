@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "942835095638",
+    "project_id": "dokodemo-push",
+    "storage_bucket": "dokodemo-push.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:942835095638:android:78c1e1d336b92cba2543f7",
+        "android_client_info": {
+          "package_name": "com.dokodemo.japanese.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "942835095638-p7d1v9hkpbl20633q1brk6rv0as01mac.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dokodemo.japanese.dev",
+            "certificate_hash": "8beff4345057e1c119fe9ec10e47d843f0e4f779"
+          }
+        },
+        {
+          "client_id": "942835095638-dqd8a9urq1rtlu1ree3k9l4inv6tl0kv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqizzHArVxTgpuCrcMYOcjo7e-9pJKO3k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "942835095638-dqd8a9urq1rtlu1ree3k9l4inv6tl0kv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
