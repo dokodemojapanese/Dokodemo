@@ -2,7 +2,7 @@ name: Build Dev APK
 on: workflow_dispatch
 
 env:
-  DEV_VER: "1.0.4"
+  DEV_VER: "1.0.6"
 
 jobs:
   build:
@@ -39,7 +39,7 @@ jobs:
           fi
           mkdir www
           echo '<!doctype html><meta charset="utf-8"><title>Dokodemo</title>' > www/index.html
-          echo '{"appId":"com.dokodemo.japanese.dev","appName":"Dokodemo Dev","webDir":"www","server":{"url":"https://dokodemojapanese.github.io/index.html","cleartext":false},"android":{"backgroundColor":"#FFFFFF"}'"$PLUG"'}' > capacitor.config.json
+          echo '{"appId":"com.dokodemo.japanese.dev","appName":"Dokodemo Nihongo","webDir":"www","server":{"url":"https://dokodemojapanese.github.io/index.html","cleartext":false},"android":{"backgroundColor":"#FCFAFE","appendUserAgent":"DokodemoApp"}'"$PLUG"'}' > capacitor.config.json
           cat capacitor.config.json
           npx cap add android
           if [ -f ../google-services.json ]; then
@@ -57,8 +57,9 @@ jobs:
         run: |
           pip install pillow
           cd app
-          curl -fsSL -o icon.png https://dokodemojapanese.github.io/icon-512.png
-          curl -fsSL -o mask.png https://dokodemojapanese.github.io/maskable-512.png
+          if [ -f ../dev-icon.png ]; then cp ../dev-icon.png icon.png; else curl -fsSL -o icon.png https://dokodemojapanese.github.io/icon-512.png; fi
+          if [ -f ../dev-mask.png ]; then cp ../dev-mask.png mask.png; else curl -fsSL -o mask.png https://dokodemojapanese.github.io/maskable-512.png; fi
+          if [ -f ../dev-splash.png ]; then cp ../dev-splash.png splashlogo.png; fi
           cat > icons.py <<'EOF'
           import os, glob
           from PIL import Image
@@ -81,11 +82,12 @@ jobs:
           hexbg = '#%02X%02X%02X' % bg[:3]
           for p in glob.glob(R + '/values*/ic_launcher_background.xml'):
               open(p, 'w').write('<?xml version="1.0" encoding="utf-8"?>\n<resources>\n    <color name="ic_launcher_background">' + hexbg + '</color>\n</resources>\n')
+          sp = Image.open('splashlogo.png').convert('RGBA') if os.path.exists('splashlogo.png') else None
           for p in glob.glob(R + '/drawable*/splash.png'):
               w, h = Image.open(p).size
-              im = Image.new('RGB', (w, h), (255, 255, 255))
-              n = int(min(w, h) * 0.32)
-              lg = ico.resize((n, n), Image.LANCZOS)
+              im = Image.new('RGB', (w, h), (252, 250, 254) if sp else (255, 255, 255))
+              n = int(min(w, h) * (0.42 if sp else 0.32))
+              lg = (sp or ico).resize((n, n), Image.LANCZOS)
               im.paste(lg, ((w - n) // 2, (h - n) // 2), lg)
               im.save(p)
           print('icons ok, bg', hexbg)
